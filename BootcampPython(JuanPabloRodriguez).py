@@ -36,8 +36,11 @@ data = [line.strip() for line in open("/home/juan-pablo/Documentos/contacts_file
 
 for i in data:
     dat = i.split(',')
-    l_contacts.append(Contact(dat[0], dat[1], dat[2], dat[3], {dat[4]: dat[5]}))
+    d = {}
+    for j in range(4, len(dat), 2):
+        d[dat[j]] = dat[j+1]
 
+    l_contacts.append(Contact(dat[0], dat[1], dat[2], dat[3], d))
 
 # Function sign_up create an instance of User class
 def sign_up():
@@ -54,7 +57,8 @@ def menu():
           "3. Update existing contact \n"
           "4. Hide contact \n"
           "5. Recover hidden contacts \n"
-          "6. Exit \n \n"
+          "6. Save \n"
+          "7. Exit \n \n"
           "Please enter the number...")
     choice = input()
 # Sort the list of contacts by the date, using lambda function
@@ -78,7 +82,7 @@ def menu():
         print("Enter phone number for " + phone_number_name)
         phone_number = input()
 
-        l_contacts.append(Contact(name, last_name, int(age), email, {phone_number_name: phone_number}))
+        l_contacts.append(Contact(name, last_name, (age), email, {phone_number_name: phone_number}))
         flag = True
 # Special case, user can add any numbers for an specific contact
         while flag:
@@ -171,8 +175,18 @@ def menu():
         print("Successful recover of hidden contacts")
 
         menu()
-# Exit the program
+
     if choice == "6":
+        f = open("/home/juan-pablo/Documentos/contacts_file.txt", "w")
+        for i in l_contacts:
+            my_dic = ",".join(("{},{}".format(*i) for i in i.phone_number.items()))
+            f.write(i.name + ',' + i.last_name + ',' + i.age + ',' + i.email + ',' + my_dic + "\n")
+        f.close()
+
+        menu()
+
+# Exit the program
+    if choice == "7":
         sys.exit()
 
 
