@@ -1,0 +1,4 @@
+Juan,Restrepo,22,juan@globant.com,cell,2343592
+Lio,Messi,20,messi@globant.com,personal,3478902,cell,3124567865
+Carlitos,Lopez,25,carlos@globant.com,personal,3478902
+Nicolas,Suarez,30,nico@gmail.com,house,123,cell,3202345335
